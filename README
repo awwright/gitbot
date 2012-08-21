@@ -1,0 +1,13 @@
+Node-GitBot: Accept a WebHook from GitHub to notify IRC channels of commits on a repository.
+
+USAGE: bot.js [options]
+	--join nickname@server/#channel
+		Join an IRC server with a certain nickname. May be used multiple times with different channels, even different nicknames.
+	--watch <repository>|nickname@server/#channel
+		Announce commits to repository repository on nickname@server/#channel. Github uses the format: https://github.com/Acubed/node-rdf
+		< and > are literal characters. e.g.: '<https://github.com/Acubed/node-rdf>|lRCBot_Master@chat.freenode.net/#Node.js'
+	--httpd-port
+
+EXAMPLE:
+
+./bot.js --join NodeCommit@chat.freenode.net/#Node.js --watch '<https://github.com/joyent/node>|NodeCommit@chat.freenode.net/#Node.js' --httpd-port 9999

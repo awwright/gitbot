@@ -1,0 +1,5 @@
+[submodule "node_modules/irc"]
+	path = node_modules/irc
+	url = git://github.com/martynsmith/node-irc.git
+	semver = *
+	npm = irc
