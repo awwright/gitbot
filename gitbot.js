@@ -66,8 +66,16 @@ function processRequest(req, res){
 		data+=chunk.toString();
 	});
 	req.on('end', function(){
+		console.log('data: %j',data);
+		if(!data.length) return res.end("\\m/");
 		var parsed = qs.parse(data);
-		var event = JSON.parse(parsed.payload);
+		console.log('parsed: %j',parsed);
+		if(!parsed || !parsed.payload) return res.end("\\m/");
+		try{
+			var event = JSON.parse(parsed.payload);
+		}catch(e){
+			return res.end("\\m/");
+		}
 		console.log(event);
 		event.commits.forEach(function(commit){
 			var fileCount = commit.added.length + commit.modified.length + commit.removed.length;
@@ -80,7 +88,7 @@ function processRequest(req, res){
 			});
 			console.log(message);
 		});
-		res.end("\m//");
+		res.end("\\m/");
 	});
 }
 
@@ -95,3 +103,7 @@ for(var server in servers){
 if(httpd){
 	http.createServer(processRequest).listen(httpd);
 }
+
+process.on('uncaughtException', function (err) {
+  console.log('Caught exception: ' + err.stack);
+});
